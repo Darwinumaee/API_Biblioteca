@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const mongoose = require("mongoose");
+const mongoose = require("mongodb");
 
 const bookSchema = new mongoose.Schema({
     title: { type: String, required: true},

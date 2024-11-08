@@ -1,0 +1,19 @@
+{
+  "name": "api_biblioteca",
+  "version": "1.0.0",
+  "description": "Desarrollo de una APIRest de una bilioteca",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: nnpm install dotenv --saveo test specified\" && exit 1"
+  },
+  "author": "Darwin de la Cruz - Docente UMAEE",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongodb": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

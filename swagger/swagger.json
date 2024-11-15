@@ -1,8 +1,37 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "API Biblioteca",
-        "version": "1.0.0",
-        "description": "Api para gestionar libros y autores"
+      "title": "Biblioteca API",
+      "version": "1.0.0",
+      "description": "API para gestionar libros y autores"
+    },
+    "paths": {
+      "/api/books": {
+        "post": {
+          "summary": "Agregar un nuevo libro",
+          "parameters": [
+            {
+              "name": "book",
+              "in": "body",
+              "description": "Información del libro a agregar",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "genre": { "type": "string" },
+                  "yearPublished": { "type": "integer" },
+                  "authors": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Libro creado exitosamente" },
+            "500": { "description": "Error al crear el libro" }
+          }
+        }
+      }
     }
-}
+  }
+  

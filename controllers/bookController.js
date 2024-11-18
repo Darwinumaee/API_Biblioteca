@@ -1,3 +1,4 @@
+// controllers/bookController.js
 const Book = require("../models/Book");
 
 // Crear un libro
@@ -28,7 +29,7 @@ exports.getBookById = async (req, res) => {
       "authors",
       "name nationality"
     );
-    if (!book) return res.status(404).json({ message: "Libro no encontrado" });
+    if (!book) return res.status(404).json({ message: "Book not found" });
     res.json(book);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -41,7 +42,7 @@ exports.updateBook = async (req, res) => {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     }).populate("authors", "name nationality");
-    if (!book) return res.status(404).json({ message: "Libro no encontrado" });
+    if (!book) return res.status(404).json({ message: "Book not found" });
     res.json(book);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -52,8 +53,8 @@ exports.updateBook = async (req, res) => {
 exports.deleteBook = async (req, res) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
-    if (!book) return res.status(404).json({ message: "Libro no encontrado" });
-    res.json({ message: "Libro borrado" });
+    if (!book) return res.status(404).json({ message: "Book not found" });
+    res.json({ message: "Book deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

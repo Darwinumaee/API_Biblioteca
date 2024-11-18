@@ -1,55 +1,58 @@
-const Author = ('../models/Author.js');
+// controllers/authorController.js
+const Author = require("../models/Author");
 
-//Insertar datos de un autor
-exports.createAutor = async (req, res) => {
+// Crear un autor
+exports.createAuthor = async (req, res) => {
   try {
-    const author = new Author(req.body)
-    await author.save()
+    const author = new Author(req.body);
+    await author.save();
     res.status(201).json(author);
-  } catch (error){
-    res.status(401).json({mesaage: error.mesage});
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
-//obtener los datos de un autor
+// Obtener todos los autores
 exports.getAuthors = async (req, res) => {
+  try {
+    const authors = await Author.find();
+    res.json(authors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Obtener un autor por ID
+exports.getAuthorById = async (req, res) => {
   try {
     const author = await Author.findById(req.params.id);
-    if (!author) return res.status(404).json({message: "Autor no encontrado"});
+    if (!author) return res.status(404).json({ message: "Author not found" });
     res.json(author);
-  } catch(error){
-    res.status(500).json({mesage: error.message})
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-//obtener la lista de autores
-exports.getAuthors = async (req, res) => {
+// Actualizar un autor
+exports.updateAuthor = async (req, res) => {
   try {
-    const author = await Author.find();
+    const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!author) return res.status(404).json({ message: "Author not found" });
     res.json(author);
-  } catch(error){
-    res.status(500).json({mesage: error.message})
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
-//eliminar un autor
-exports.getAuthors = async (req, res) => {
+// Eliminar un autor
+exports.deleteAuthor = async (req, res) => {
   try {
     const author = await Author.findByIdAndDelete(req.params.id);
-    if (!author) return res.status(404).json({message: "Autor no encontrado"});
-    res.json({message: "Autor borrado"});
-  } catch(error){
-    res.status(500).json({mesage: error.message})
-  }
-};
-
-//Actualizar los datos de un autor
-exports.getAuthors = async (req, res) => {
-  try {
-    const author = await Author.findByIdAndUpdate(req.params.id, req.body, {new: true,});
-    if (!author) return res.status(404).json({message: "Autor no encontrado"});
-    res.json(author);
-  } catch(error){
-    res.status(500).json({mesage: error.message})
+    if (!author) return res.status(404).json({ message: "Author not found" });
+    res.json({ message: "Author deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
